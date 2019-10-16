@@ -1,0 +1,377 @@
+@import './components/stepper.scss';
+
+body {
+    --safe-area-inset-top: env(safe-area-inset-top);
+    --safe-area-inset-bottom: env(safe-aa-inset-bottom);
+    padding-top: var(--safe-area-inset-top);
+    //padding-top: env(safe-area-inset-top);
+    padding-bottom: var(--safe-area-inset-bottom);
+    //padding-bottom: env(safe-area-inset-bottom);
+    //padding-left: constant(safe-area-inset-left);
+    //padding-left: env(safe-area-inset-left);
+    //padding-right: constant(safe-area-inset-right);
+    //padding-right: env(safe-area-inset-right);
+}
+// 常用的ＣＳＳ 修改
+// ============================================================
+.position-relative {
+    position: relative;
+}
+
+.position-absolute {
+    position: absolute;
+}
+
+.cursor-pointer {
+    cursor: pointer;
+}
+// filter dialog 內的按鈕樣式修改
+// ============================================================
+.v-btn {
+    &__svg-filter {
+        &.v-btn {
+            &--large {
+                padding: 0 8px;
+            }
+        }
+    }
+}
+.v-btn-toggle {
+    &__filter {
+        display: contents!important;
+        .v-btn {
+            opacity: 1!important;
+            min-width: 130px!important;
+        }
+        &.theme--light {
+            .v-btn {
+                color: rgba(0, 0, 0, 0) !important;
+            }
+        }
+    }
+}
+// @todo 不知道誰加的 自己認領
+// ============================================================
+.v-bottom-nav {
+    span.v-badge__badge {
+        width: 6px;
+        height: 6px;
+    }
+    .v-badge--overlap .v-badge__badge {
+        top: -3px;
+        right: -3px;
+    }
+    .v-avatar {
+        margin-bottom: 4px;
+    }
+    .v-btn {
+        min-width: 64px !important;
+    }
+}
+
+// v-card BEM style @todo 卡片的類型會影響 border顏色
+// ============================================================
+.v-card {
+    /* list card */
+    &__property-horizontal {
+        overflow: hidden !important;
+        border-radius: 3px !important;
+        &:not(:focus):hover {
+            //border-left: 4px solid map-get(map-get($colors, 'primary'), 'base') !important;
+        }
+        &--disabled {
+            border-left: 4px solid map-get(map-get($colors, 'gray'), 'lighten-2') !important;
+        }
+        &--free {
+            border-left: 4px solid map-get(map-get($colors, 'gray'), 'lighten-3') !important;
+        }
+        &--normal {
+            border-left: 4px solid map-get(map-get($colors, 'primary'), 'base') !important;
+        }
+        &--impression {
+            border-left: 4px solid map-get(map-get($colors, 'amber'), 'base') !important;
+        }
+
+        .v-image {
+            &__image {
+                border-radius: 3px;
+            }
+        }
+        .v-card__property-horizontal {
+            &__title {
+                @extend .body-2 !optional;
+                @extend .text-truncate !optional;
+                color: map-get(map-get($colors, 'secondary'), 'base');
+            }
+            &__address {
+                @extend .body-1 !optional;
+                @extend .text-truncate !optional;
+                color: map-get(map-get($colors, 'secondary'), 'darken-1');
+            }
+            &__structure {
+                @extend .body-1 !optional;
+                @extend .text-truncate !optional;
+                color: map-get(map-get($colors, 'secondary'), 'darken-1');
+            }
+        }
+    }
+    /* image card */
+    &__property-vertical {
+        overflow: hidden !important;
+        border-radius: 3px !important;
+        border-top: 4px solid map-get(map-get($colors, 'secondary'), 'lighten-3') !important;
+        &:not(:focus ):hover {
+            //border-top: 4px solid map-get(map-get($colors, 'primary'), 'base') !important;
+        }
+
+        &--disabled {
+            border-top: 4px solid map-get(map-get($colors, 'gray'), 'lighten-2') !important;
+        }
+        &--free {
+            border-top: 4px solid map-get(map-get($colors, 'gray'), 'lighten-3') !important;
+        }
+        &--normal {
+            border-top: 4px solid map-get(map-get($colors, 'primary'), 'base') !important;
+        }
+        &--impression {
+            border-top: 4px solid map-get(map-get($colors, 'amber'), 'base') !important;
+        }
+        //card 模式 toolbar 放 特殊TAG 調整基層不押在 header toolbar
+        .v-toolbar{
+            &--absolute{
+                z-index: 1 !important;
+            }
+        }
+        .v-card__property-vertical {
+            &__title {
+                @extend .body-2 !optional;
+                @extend .text-truncate !optional;
+                color: map-get(map-get($colors, 'secondary'), 'base');
+            }
+            &__address {
+                @extend .caption !optional;
+                @extend .text-truncate !optional;
+                color: map-get(map-get($colors, 'secondary'), 'darken-1');
+            }
+            &__structure {
+                @extend .caption !optional;
+                @extend .text-truncate !optional;
+                color: map-get(map-get($colors, 'secondary'), 'base');
+            }
+        }
+    }
+    // 卡片上的 tag標籤 間距微調
+    // ============================================================
+    .v-chip-group {
+        &__pigrent{
+            .v-chip {
+                &__pigrent-tag {
+                    /* 卡片上的房源屬性 chip */
+                    //margin-left: 0;
+                    //margin-bottom: 0;
+                    //margin-top: 0;
+                    //height: 25px;
+                }
+
+            }
+            .v-slide-group__content {
+                padding: 0;
+            }
+            // @todo bug 2.0.0.15 少了這段 會跑出左右 2.0.0.18被修好ㄌ
+            // ============================================================
+            //&.v-slide-group:not(.v-slide-group--has-affixes) .v-slide-group__prev, .v-slide-group:not(.v-slide-group--has-affixes) .v-slide-group__next {
+            //    display: none;
+            //}
+        }
+    }
+
+    // 房東介紹頁 房東簡介文字收納
+    // ============================================================
+    //&__collapse {
+    //    white-space: nowrap !important;
+    //    overflow: hidden !important;
+    //    text-overflow: ellipsis !important;
+    //
+    //    width: 100%;
+    //    line-height: 1.64 !important;
+    //    animation: fadein 0.5s linear;
+    //    &--open {
+    //        white-space: unset !important;
+    //        animation: fade 0.5s linear;
+    //    }
+    //
+    //    @keyframes fade {
+    //        0%,20% { opacity: 0; }
+    //        100% { opacity: 1; }
+    //    }
+    //
+    //    @keyframes fadein {
+    //        0%,2% { opacity: 0; }
+    //        100% { opacity: 1; }
+    //    }
+    //}
+    // 蒐藏按鈕因 absolute 層級樣式過高 下修  (避免超出header toolbar)
+    // ============================================================
+    .v-btn {
+        &__favorite {
+            &.v-btn--absolute {
+                z-index: 2 !important;
+            }
+        }
+    }
+}
+// v-slide-group 調整首頁 在行動裝置以下 隱藏左右兩編的按鈕
+// ============================================================
+.v-slide-group {
+    &__pigrent-index {
+        .v-slide-group__prev {
+            @media screen and (max-width: map-get($grid-breakpoints, 'lg') - 1px) {
+                display: none !important;
+            }
+        }
+        .v-slide-group__next {
+            @media screen and (max-width: map-get($grid-breakpoints, 'lg') - 1px) {
+                display: none !important;
+            }
+        }
+    }
+}
+// 首頁adsBanner 微調ＣＳＳ
+// ============================================================
+.v-carousel {
+    &__banner {
+        .v-carousel__controls {
+            bottom: 30px !important;
+            @media screen and (max-width: map-get($grid-breakpoints, 'lg') - 1px) {
+                bottom: 0px !important;
+            }
+        }
+    }
+}
+// tab item 文字大小 active顏色調整
+// ============================================================
+//.v-tabs {
+//    &__pigrent {
+//        .v-tabs {
+//            &__item {
+//                //font-size: 16px;
+//                &--active {
+//                    //color: map-get(map-get($colors, 'primary'), 'base');
+//                }
+//            }
+//        }
+//        // mobile-break-point="1" 解
+//        //.v-tabs-bar.v-tabs-bar--is-mobile:not(.v-tabs-bar--show-arrows)
+//        //> .v-slide-group__wrapper
+//        //> .v-tabs-bar__content
+//        //> .v-tab:first-of-type {
+//        //    margin-left: 0px !important;
+//        //}
+//    }
+//}
+
+// v-banner 使用在文字收合功能
+// ============================================================
+.v-banner {
+    &__pigrent-text-limit {
+        // 去除該死的底線
+        .v-banner__wrapper {
+            border-bottom: 0 !important;
+            padding-left: 4px !important;
+        }
+    }
+}
+
+// /* Enter and leave animations can use different */
+// /* durations and timing functions.              */
+.slide-fade-enter-active {
+    transition: all .3s ease;
+}
+
+.slide-fade-leave-active {
+    transition: all .8s cubic-bezier(1.0, 0.5, 0.8, 1.0);
+}
+.slide-fade-enter, .slide-fade-leave-to
+    /* .slide-fade-leave-active below version 2.1.8 */ {
+    transform: translateX(10px);
+    opacity: 0;
+}
+
+.overflow-scrolling-touch {
+    -webkit-overflow-scrolling: touch !important;
+}
+
+
+/**
+ * ###################### 這裡是place input 提示選項 樣式 ######################
+ * google placeinput css reference
+ * url: https://developers.google.com/maps/documentation/javascript/places-autocomplete;
+ */
+// autocomplete 選項樣式調整
+// ============================================================
+.hdpi.pac-logo:after,
+.pac-logo:after {
+    background-image: none;
+    height: 0;
+    padding: 0;
+    display: none;
+}
+.hdpi .pac-icon {
+    background-image: none !important;
+    display: none;
+}
+
+.pac-container {
+    min-width: 250px;
+    border: none;
+    border-radius: 10px;
+    margin-top: 22px;
+    overflow: initial !important;
+    background: #fff;
+    box-shadow: 0 0px 6px rgba(0, 0, 0, 0.3);
+    &:before {
+        content: '';
+        position: absolute;
+        width: 0;
+        height: 0;
+        border-style: solid;
+        border-width: 0 8px 10px 8px;
+        border-color: transparent transparent #fff transparent;
+        top: -10px;
+        left: 50px;
+    }
+}
+
+.pac-container .pac-logo .hdpi {
+    display: block !important;
+}
+
+.pac-item {
+    color: #9d9e9f;
+    height: 50px;
+    padding: 16px;
+    background-color: #fff;
+    border: none;
+    font-size: 14px;
+    line-height: initial;
+    &:first-child {
+        border-radius: 10px 10px 0 0;
+    }
+    &:last-child {
+        border-radius: 0 0 10px 10px;
+    }
+    &:focus {
+        background-color: #b2f1ec;
+    }
+    &:active {
+        background-color: #b2f1ec;
+    }
+    &:hover {
+        background: rgba(161, 231, 224, 0.2);
+    }
+}
+
+.pac-item-query {
+    color: #32ccbc;
+    font-size: 14px;
+}

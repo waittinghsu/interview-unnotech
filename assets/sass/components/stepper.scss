@@ -1,0 +1,10 @@
+.v-stepper__header {
+    &.small {
+        @media all and (max-width: 576px) {
+            height: 60px;
+            .v-stepper__step {
+                padding: 16px;
+            }
+        }
+    }
+}

@@ -1,0 +1,252 @@
+@require 'variables.styl'
+@require 'colors.styl'
+// svg direction
+// ============================================================
+degree = { 'up': 0, 'right': 90, 'down': 180, 'left': -90 }
+
+for key, val in degree
+    .svg-{key}
+        transform: rotate( val deg);
+
+// 常用的ＣＳＳ 修改
+// ============================================================
+.position-relative {
+    position: relative;
+}
+
+.position-absolute {
+    position: absolute;
+}
+
+.cursor-pointer {
+    cursor: pointer;
+}
+// filter dialog 內的按鈕樣式修改
+// ============================================================
+.v-btn {
+    &__svg-filter {
+        &.v-btn {
+            &--large {
+                padding: 0 8px;
+            }
+        }
+    }
+}
+.v-btn-toggle {
+    &__filter {
+        display: contents!important;
+        .v-btn {
+            opacity: 1!important;
+            min-width: 130px!important;
+        }
+        &.theme--light {
+            .v-btn {
+                color: rgba(0, 0, 0, 0) !important;
+            }
+        }
+    }
+}
+// @todo 不知道誰加的 自己認領
+// ============================================================
+.v-bottom-nav {
+    span.v-badge__badge {
+        width: 6px;
+        height: 6px;
+    }
+    .v-badge--overlap .v-badge__badge {
+        top: -3px;
+        right: -3px;
+    }
+    .v-avatar {
+        margin-bottom: 4px;
+    }
+    .v-btn {
+        min-width: 64px !important;
+    }
+}
+
+// v-card BEM style
+// ============================================================
+//.grid-list-spacing {
+//    //處理 grid-list-${} 預設的 layout flex 內縮 外推 問題 某次改版還是堅持底下ㄉlayout flex poadding margin自己微調
+//    .layout {
+//        padding: 0;
+//        .flex {
+//            padding: 0;
+//        }
+//    }
+//    *:not(:only-child) .layout:last-child {
+//        margin: 0;
+//    }
+//    *:not(:only-child) .layout:first-child {
+//        margin: 0;
+//    }
+//}
+.v-card {
+    /* list card */
+    &.card-property-horizontal {
+        overflow: hidden !important;
+        border-radius: 3px !important;
+        &:not(:focus):hover {
+            border-left: 4px solid $tiffany.base !important;
+        }
+        .v-image {
+            &__image {
+                border-radius: 3px;
+            }
+        }
+        &__border {
+            &--active {
+                border-left: 4px solid $tiffany.base !important;
+            }
+            &--error {
+                border-left: 4px solid $red.darken-1 !important;
+            }
+            &--warring {
+                border-left: 4px solid $amber.base !important;
+            }
+        }
+        .card-property-horizontal {
+            &__card-absolute-tags {
+                position: absolute;
+                top:4px;
+                left:4px;
+            }
+            &__title {
+                @extend .body-2;
+                @extend .text-truncate;
+                color: $gray.base;
+            }
+            &__address {
+                @extend .body-1;
+                @extend .text-truncate;
+                color: $gray.darken-1;
+            }
+            &__structure {
+                @extend .body-1;
+                @extend .text-truncate;
+                color: $gray.darken-1;
+            }
+        }
+    }
+    /* image card */
+    &.card-property-vertical {
+        overflow: hidden !important;
+        border-radius: 3px !important;
+        border-top: 4px solid $gray.lighten-3 !important;
+        &:not(:focus ):hover {
+            border-top: 4px solid $tiffany.base !important;
+        }
+        &__border {
+            &--active {
+                border-top: 4px solid $tiffany.base !important;
+            }
+            &--error {
+                border-top: 4px solid $red.darken-1 !important;
+            }
+            &--warring {
+                border-top: 4px solid $amber.base !important;
+            }
+        }
+        //card 模式 toolbar 放 特殊TAG 調整基層不押在 header toolbar
+        .v-toolbar{
+             &--absolute{
+                 z-index: 1 !important;
+             }
+         }
+        .card-property-vertical {
+            &__title {
+                @extend .body-2;
+                @extend .text-truncate;
+                color: $gray.base;
+            }
+            &__address {
+                @extend .caption;
+                @extend .text-truncate;
+                color: $gray.darken-1;
+            }
+            &__structure {
+                @extend .caption;
+                @extend .text-truncate;
+                color: $gray.base;
+            }
+        }
+    }
+    // 卡片上的 tag標籤 間距微調
+    // ============================================================
+    .v-chip {
+        &__property-tag {
+            /* 卡片上的房源屬性 chip */
+            margin-left: 0;
+            margin-bottom: 0;
+            margin-top: 0;
+            height: 25px;
+        }
+        .v-chip__content {
+            padding: 0 8px;
+        }
+    }
+    // 房東介紹頁 房東簡介文字收納
+    // ============================================================
+    &__collapse {
+        @extend .text-truncate;
+        width: 100%;
+        line-height: 1.64 !important;
+        animation: fadein 0.5s linear;
+        &--open {
+            white-space: unset !important;
+            animation: fade 0.5s linear;
+        }
+
+        @keyframes fade {
+            0%,20% { opacity: 0; }
+            100% { opacity: 1; }
+        }
+
+        @keyframes fadein {
+            0%,2% { opacity: 0; }
+            100% { opacity: 1; }
+        }
+    }
+    // 蒐藏按鈕因 absolute 層級樣式過高 下修  (避免超出header toolbar)
+    // ============================================================
+    .v-btn {
+        &__favorite {
+            &.v-btn--floating.v-btn--absolute {
+                z-index: 1 !important;
+            }
+        }
+    }
+}
+// tab item 文字大小 active顏色調整
+// ============================================================
+.v-tabs {
+    &__pigrent-properties {
+        .v-tabs {
+            &__item {
+                font-size: 16px;
+                &--active {
+                    color: $tiffany.base;
+                }
+            }
+        }
+    }
+}
+// /* Enter and leave animations can use different */
+// /* durations and timing functions.              */
+.slide-fade-enter-active {
+  transition: all .3s ease;
+}
+.slide-fade-leave-active {
+  transition: all .8s cubic-bezier(1.0, 0.5, 0.8, 1.0);
+}
+.slide-fade-enter, .slide-fade-leave-to
+/* .slide-fade-leave-active below version 2.1.8 */ {
+  transform: translateX(10px);
+  opacity: 0;
+}
+
+.overflow-scrolling-touch {
+    -webkit-overflow-scrolling: touch !important;
+}
+
